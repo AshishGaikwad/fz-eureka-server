@@ -1,24 +1,24 @@
 version: "3.9"
 
 services:
-  build-app:
-    image: maven:3.9.2
-    container_name: fz-eureka-server
-    working_dir: /app
-    volumes:
-      - ./:/app
-    command: mvn clean package -DskipTests
-
-  fz-eureka-server:
-    image: eclipse-temurin:21-jre
-    container_name: fz-eureka-server
+  eurekaserver:
+    container_name: eurekaserver
+    image: eurekaserver:latest
     ports:
       - "7070:7070"
-    depends_on:
-      - build-app
-    volumes:
-      - ./target/fz-eureka-server-0.0.1-SNAPSHOT.jar:/app/app.jar
-    working_dir: /app
     environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
-    command: ["java", "-jar", "app.jar"]
+      SPRING_APPLICATION_NAME: eurekaserver
+      SERVER_PORT: 7070
+
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+
+      EUREKA_INSTANCE_HOSTNAME: eurekaserver
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:7070/eureka/
+    networks:
+      - fz-network
+    restart: unless-stopped
+
+networks:
+  fz-network:
+    driver: bridge
