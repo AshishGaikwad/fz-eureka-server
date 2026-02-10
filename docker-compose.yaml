@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   build-app:
-    image: maven:3.9.2-eclipse-temurin-21
+    image: maven:3.9.2-jdk-21
     container_name: fz-eureka-build
     working_dir: /app
     volumes:
@@ -17,7 +17,7 @@ services:
     depends_on:
       - build-app
     volumes:
-      - ./target/fz-user-service-0.0.1-SNAPSHOT.jar:/app/app.jar
+      - ./target/fz-eureka-server-0.0.1-SNAPSHOT.jar:/app/app.jar
     working_dir: /app
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
