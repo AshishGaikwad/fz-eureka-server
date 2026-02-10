@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  eurekaserver:
-    container_name: eurekaserver
-    image: eurekaserver:latest
+  app:
+    build: .
+    container_name: fz-eureka-server
     ports:
       - "7070:7070"
     environment:
@@ -13,12 +13,6 @@ services:
       EUREKA_CLIENT_FETCH_REGISTRY: "false"
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
 
-      EUREKA_INSTANCE_HOSTNAME: eurekaserver
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:7070/eureka/
-    networks:
-      - fz-network
+      EUREKA_INSTANCE_HOSTNAME: fz-eureka-server
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://fz-eureka-server:7070/eureka/
     restart: unless-stopped
-
-networks:
-  fz-network:
-    driver: bridge
