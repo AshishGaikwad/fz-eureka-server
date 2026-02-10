@@ -8,6 +8,8 @@ services:
       - "7070:7070"
     environment:
       SPRING_APPLICATION_NAME: eurekaserver
+      SPRING_PROFILES_ACTIVE: prod
+
       SERVER_PORT: 7070
 
       EUREKA_CLIENT_FETCH_REGISTRY: "false"
