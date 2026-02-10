@@ -12,4 +12,4 @@ eureka:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   instance:
-    hostname: eurekaserver
+    hostname: localhost
